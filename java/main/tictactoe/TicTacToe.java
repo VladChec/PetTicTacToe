@@ -15,14 +15,25 @@ public class TicTacToe extends JComponent {
         field = new int[3][3];
         initGame();
     }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(5));
+        g.clearRect(0,0,getWidth(),getHeight());
+        drawGrid(g);
+        drawX0(g);
 
+    }
     public void initGame() {
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 field[i][j] = FIELD_EMPTY;
             }
         }
     isXturn = true;
+
     }
 
     @Override
@@ -31,7 +42,6 @@ public class TicTacToe extends JComponent {
         if (e.getButton() == MouseEvent.BUTTON1) {
             int x = e.getX();
             int y = e.getY();
-
             int i = (int) ((float) x / getWidth() * 3);
             int j = (int) ((float) y / getHeight() * 3);
             if (field[i][j] == FIELD_EMPTY){
@@ -50,10 +60,11 @@ public class TicTacToe extends JComponent {
                         JOptionPane.showInternalMessageDialog(this,"Lohi", "Nechya",JOptionPane.INFORMATION_MESSAGE);
                     }
                     initGame();
-                    repaint();
+
                 }
             }
         }
+
     }
 
     void drawX (int i , int j , Graphics graphics){
@@ -64,6 +75,7 @@ public class TicTacToe extends JComponent {
         int y = j * dh;
         graphics.drawLine(x,y,x+dw,y+dh);
         graphics.drawLine(x,y+dh,x+dw,y);
+
     }
     void draw0 (int i , int j , Graphics graphics){
         graphics.setColor(Color.RED);
@@ -72,6 +84,7 @@ public class TicTacToe extends JComponent {
         int x = i * dw;
         int y = j * dh;
         graphics.drawOval(x+5* dw /100, y , dw* 9 /10, dh);
+
     }
     void  drawX0(Graphics graphics){
         for (int i = 0; i < 3; i++) {
@@ -83,6 +96,7 @@ public class TicTacToe extends JComponent {
                 }
             }
         }
+
     }
     void drawGrid (Graphics graphics){
         int w  = getWidth();
@@ -91,9 +105,11 @@ public class TicTacToe extends JComponent {
         int dh = h / 3;
         graphics.setColor(Color.BLACK);
         for (int i = 1; i < 3; i++) {
+
             graphics.drawLine(0 ,dh * i, w,dh * i);
             graphics.drawLine(dw * i, 0,dw*i,h);
         }
+
     }
 
     int checkState(){
@@ -129,13 +145,5 @@ public class TicTacToe extends JComponent {
         else return  -1;
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.clearRect(0,0,getWidth(),getHeight());
-        drawGrid(g);
-        drawX0(g);
-//        g.setColor(Color.RED);
-//        g.drawOval(10,10,150,150);
-    }
+
 }

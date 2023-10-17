@@ -10,8 +10,10 @@ public class Main {
         window.setSize(800,800);
         window.setLayout(new BorderLayout());
         window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        window.setResizable(false);
         TicTacToe game = new TicTacToe();
         window.add(game);
+        window.setVisible(true);
+
     }
 }
